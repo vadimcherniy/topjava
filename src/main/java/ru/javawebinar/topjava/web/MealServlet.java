@@ -38,7 +38,7 @@ public class MealServlet extends HttpServlet {
                 break;
             case ("update"):
             case ("create"):
-                Meal meal = id != null ? repository.get(Long.valueOf(id)) : new Meal(LocalDateTime.now(), "", 1000);
+                Meal meal = id != null ? repository.get(Long.valueOf(id)) : new Meal(null, LocalDateTime.now(), "", 1000);
                 req.setAttribute("meal", meal);
                 req.getRequestDispatcher("/mealForm.jsp").forward(req, resp);
                 break;
@@ -53,6 +53,16 @@ public class MealServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        req.setCharacterEncoding("UTF-8");
+        String id = req.getParameter("id");
+
+        Meal meal = new Meal(id.isEmpty() ? null : Long.valueOf(id),
+                LocalDateTime.parse(req.getParameter("dateTime")),
+                req.getParameter("description"),
+                Integer.parseInt(req.getParameter("calories")));
+
+        LOG.info(meal.isNew() ? "Create {}" : "Update {}", meal);
+        repository.save(meal);
+        resp.sendRedirect("meals");
     }
 }
