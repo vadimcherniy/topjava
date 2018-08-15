@@ -7,9 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import ru.javawebinar.topjava.model.Meal;
-import ru.javawebinar.topjava.model.MealWithExceed;
-import ru.javawebinar.topjava.repository.MealRepository;
-import ru.javawebinar.topjava.repository.impl.InMemoryMealRepositoryImpl;
+import ru.javawebinar.topjava.dao.UserMealDao;
+import ru.javawebinar.topjava.dao.impl.InMemoryUserMealDaoImpl;
 import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.io.IOException;
@@ -22,7 +21,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 public class MealServlet extends HttpServlet {
     private static final Logger LOG = getLogger(MealServlet.class);
 
-    private MealRepository repository = new InMemoryMealRepositoryImpl();
+    private UserMealDao repository = new InMemoryUserMealDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

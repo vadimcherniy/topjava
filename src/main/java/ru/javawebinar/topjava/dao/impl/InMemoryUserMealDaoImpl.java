@@ -1,7 +1,7 @@
-package ru.javawebinar.topjava.repository.impl;
+package ru.javawebinar.topjava.dao.impl;
 
 import ru.javawebinar.topjava.model.Meal;
-import ru.javawebinar.topjava.repository.MealRepository;
+import ru.javawebinar.topjava.dao.UserMealDao;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class InMemoryMealRepositoryImpl implements MealRepository {
+public class InMemoryUserMealDaoImpl implements UserMealDao {
 
     private Map<Long, Meal> repository = new ConcurrentHashMap<>();
     private AtomicLong counter = new AtomicLong(0);
