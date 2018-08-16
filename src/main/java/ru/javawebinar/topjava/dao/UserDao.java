@@ -9,10 +9,10 @@ public interface UserDao {
     User save(User user);
 
     // false if not found
-    boolean delete(int id);
+    boolean delete(long id);
 
     // null if not found
-    User get(int id);
+    User get(long id);
 
     // null if not found
     User getByEmail(String email);
