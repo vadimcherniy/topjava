@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.web.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.UserService;
 
@@ -14,6 +15,7 @@ public abstract class AbstractUserController {
 
     private static final Logger LOG = getLogger(AbstractUserController.class);
 
+    @Autowired
     private UserService service;
 
     public List<User> getAll() {
