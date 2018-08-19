@@ -33,4 +33,27 @@ public class User extends AbstractNamedEntity {
         this.roles = roles;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public int getCaloriesPerDay() {
+        return caloriesPerDay;
+    }
 }
