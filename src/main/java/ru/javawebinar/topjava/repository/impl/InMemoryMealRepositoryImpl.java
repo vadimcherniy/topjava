@@ -21,19 +21,19 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     private AtomicLong counter = new AtomicLong(0);
 
     {
-        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 30, 10, 0), "Завтрак", 500));
-        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 30, 13, 0), "Обед", 1000));
-        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 30, 20, 0), "Ужин", 500));
-        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 31, 10, 0), "Завтрак", 1000));
-        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 31, 13, 0), "Обед", 500));
-        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 31, 20, 0), "Ужин", 510));
+        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 30, 10, 0), "Завтрак", 500), 1L);
+        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 30, 13, 0), "Обед", 1000), 1L);
+        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 30, 20, 0), "Ужин", 500), 1L);
+        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 31, 10, 0), "Завтрак", 1000), 1L);
+        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 31, 13, 0), "Обед", 500), 1L);
+        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 31, 20, 0), "Ужин", 510), 1L);
 
-        save(new Meal(null, 0L, LocalDateTime.of(2018, Month.MAY, 31, 13, 0), "Обед", 500));
-        save(new Meal(null, 0L, LocalDateTime.of(2018, Month.MAY, 31, 20, 0), "Ужин", 510));
+        save(new Meal(null, 0L, LocalDateTime.of(2018, Month.MAY, 31, 13, 0), "Обед", 500), 0L);
+        save(new Meal(null, 0L, LocalDateTime.of(2018, Month.MAY, 31, 20, 0), "Ужин", 510), 0L);
     }
 
     @Override
-    public Meal save(Meal meal) {
+    public Meal save(Meal meal, Long userId) {
         if (meal.isNew()) {
             meal.setId(counter.incrementAndGet());
             repository.put(meal.getId(), meal);
