@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
+import ru.javawebinar.topjava.web.SecurityUtil;
 
 import java.util.List;
 
@@ -23,15 +24,15 @@ public class MealRestController {
     }
 
     public void delete(Long id) {
-        mealService.delete(id);
+        mealService.delete(id, SecurityUtil.authUserId());
     }
 
     public Meal get(Long id) {
-        return mealService.get(id);
+        return mealService.get(id, SecurityUtil.authUserId());
     }
 
     public List getAll() {
-        return mealService.getAll();
+        return mealService.getAll(SecurityUtil.authUserId());
     }
 
 }

@@ -8,9 +8,9 @@ public interface MealService {
 
     Meal save(Meal meal);
 
-    void delete(Long id);
+    void delete(Long id, Long userId);
 
-    Meal get(Long id);
+    Meal get(Long id, Long userId);
 
-    List getAll();
+    List getAll(Long userId);
 }

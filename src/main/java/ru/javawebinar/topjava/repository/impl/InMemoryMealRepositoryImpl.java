@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.repository.impl;
 
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.MealRepository;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 @Repository
 public class InMemoryMealRepositoryImpl implements MealRepository {
@@ -42,17 +44,25 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     }
 
     @Override
-    public void delete(Long id) {
-        repository.remove(id);
+    public boolean delete(Long id, Long userId) {
+        Meal meal = get(id, userId);
+        if (meal != null) {
+            repository.remove(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public Meal get(Long id) {
-        return repository.get(id);
+    public Meal get(Long id, Long userId) {
+        Meal meal = repository.get(id);
+        return meal.getUserId().equals(userId) ? meal : null;
     }
 
     @Override
-    public List getAll() {
-        return new ArrayList(repository.values());
+    public List<Meal> getAll(Long userId) {
+        List<Meal> result = new  ArrayList(repository.values());
+        return result.stream().filter(m -> m.getUserId().equals(userId)).collect(Collectors.toList());
     }
 }
