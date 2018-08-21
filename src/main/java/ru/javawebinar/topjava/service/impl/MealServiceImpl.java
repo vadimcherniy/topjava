@@ -7,27 +7,45 @@ import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.service.MealService;
 import ru.javawebinar.topjava.util.ValidationUtil;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFound;
+import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class MealServiceImpl implements MealService {
 
-    @Autowired
     private MealRepository mealRepository;
 
+    @Autowired
+    public void setMealRepository(MealRepository mealRepository) {
+        this.mealRepository = mealRepository;
+    }
+
     @Override
-    public Meal save(Meal meal) {
-        return mealRepository.save(meal);
+    public Meal crete(Meal meal, Long userId) {
+        return checkNotFoundWithId(mealRepository.save(meal, userId), meal.getId());
+    }
+
+    @Override
+    public Meal update(Meal meal, Long userId) {
+        return checkNotFoundWithId(mealRepository.save(meal, userId), meal.getId());
     }
 
     @Override
     public void delete(Long id, Long userId) {
-        ValidationUtil.checkNotFound(mealRepository.delete(id, userId), "id = " + id);
+        checkNotFoundWithId(mealRepository.delete(id, userId), id);
     }
 
     @Override
     public Meal get(Long id, Long userId) {
-        return ValidationUtil.checkNotFound(mealRepository.get(id, userId), "id = " + id);
+        return checkNotFoundWithId(mealRepository.get(id, userId), id);
+    }
+
+    @Override
+    public List<Meal> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, Long userId) {
+        return mealRepository.getBetween(startDateTime, endDateTime, userId);
     }
 
     @Override

@@ -22,16 +22,23 @@ public class MealServlet extends HttpServlet {
     private static final Logger LOG = getLogger(MealServlet.class);
 
     private MealRestController controller;
+    private ClassPathXmlApplicationContext context;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        controller = new ClassPathXmlApplicationContext("spring/spring-app.xml").getBean(MealRestController.class);
+        context = new ClassPathXmlApplicationContext("spring/spring-app.xml");
+        controller = context.getBean(MealRestController.class);
+    }
+
+    @Override
+    public void destroy() {
+        context.close();
+        super.destroy();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        LOG.debug("redirect to user meals");
 
         String action = req.getParameter("action");
         String id = req.getParameter("id");
@@ -67,8 +74,11 @@ public class MealServlet extends HttpServlet {
                 req.getParameter("description"),
                 Integer.parseInt(req.getParameter("calories")));
 
-        LOG.info(meal.isNew() ? "Create {}" : "Update {}", meal);
-        controller.save(meal);
+        if (req.getParameter("id").isEmpty()) {
+            controller.create(meal);
+        } else {
+            controller.update(meal);
+        }
         resp.sendRedirect("meals");
     }
 }

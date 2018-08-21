@@ -18,7 +18,6 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOG.debug("redirect to users");
         String userId = request.getParameter("id");
         SecurityUtil.setAuthUserId(Long.valueOf(userId));
         request.getRequestDispatcher("/meals").forward(request, response);

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Repository
@@ -18,12 +19,12 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
     public static final int ADMIN_ID = 2;
 
     private Map<Long, User> repository = new ConcurrentHashMap<>();
-    private AtomicInteger counter = new AtomicInteger(0);
+    private AtomicLong counter = new AtomicLong(0);
 
     @Override
     public User save(User user) {
         if (user.isNew()) {
-            user.setId(Integer.toUnsignedLong(counter.incrementAndGet()));
+            user.setId(counter.incrementAndGet());
             repository.put(user.getId(), user);
             return user;
         }
