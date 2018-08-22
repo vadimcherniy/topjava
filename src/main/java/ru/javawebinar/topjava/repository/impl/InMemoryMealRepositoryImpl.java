@@ -21,15 +21,15 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     private AtomicLong counter = new AtomicLong(0);
 
     {
-        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 30, 10, 0), "Завтрак", 500), 1L);
-        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 30, 13, 0), "Обед", 1000), 1L);
-        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 30, 20, 0), "Ужин", 500), 1L);
-        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 31, 10, 0), "Завтрак", 1000), 1L);
-        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 31, 13, 0), "Обед", 500), 1L);
-        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.MAY, 31, 20, 0), "Ужин", 510), 1L);
+        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.AUGUST, 21, 10, 0), "Завтрак", 500), 1L);
+        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.AUGUST, 21, 13, 0), "Обед", 1000), 1L);
+        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.AUGUST, 21, 20, 0), "Ужин", 500), 1L);
+        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.AUGUST, 22, 10, 0), "Завтрак", 1000), 1L);
+        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.AUGUST, 22, 13, 0), "Обед", 500), 1L);
+        save(new Meal(null, 1L, LocalDateTime.of(2018, Month.AUGUST, 22, 20, 0), "Ужин", 510), 1L);
 
-        save(new Meal(null, 0L, LocalDateTime.of(2018, Month.MAY, 31, 13, 0), "Admin Обед", 500), 0L);
-        save(new Meal(null, 0L, LocalDateTime.of(2018, Month.MAY, 31, 20, 0), "Admin Ужин", 510), 0L);
+        save(new Meal(null, 0L, LocalDateTime.of(2018, Month.AUGUST, 21, 13, 0), "Admin Обед", 500), 0L);
+        save(new Meal(null, 0L, LocalDateTime.of(2018, Month.AUGUST, 22, 20, 0), "Admin Ужин", 510), 0L);
     }
 
     @Override
@@ -38,10 +38,8 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
         if (meal.isNew()) {
             meal.setId(counter.incrementAndGet());
             meals.put(meal.getId(), meal);
-            repository.put(meal.getId(), meals);
         } else {
             meals.put(meal.getId(), meal);
-            repository.put(userId, meals);
         }
         return meal;
     }
@@ -70,7 +68,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
 
     @Override
     public List<Meal> getBetween(LocalDateTime startDateTime, LocalDateTime endDateTime, Long userId) {
-        return getAllFiltered(userId, meal -> DateTimeUtil.isBetween(meal.getTime(), startDateTime.toLocalTime(), endDateTime.toLocalTime()));
+        return getAllFiltered(userId, meal -> DateTimeUtil.isBetween(meal.getDateTime(), startDateTime, endDateTime));
     }
 
     private List<Meal> getAllFiltered(Long userId, Predicate<Meal> filter) {

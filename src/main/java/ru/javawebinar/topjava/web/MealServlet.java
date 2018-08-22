@@ -12,11 +12,14 @@ import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.web.meal.MealRestController;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
+import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalDate;
+import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 
 public class MealServlet extends HttpServlet {
     private static final Logger LOG = getLogger(MealServlet.class);
@@ -38,47 +41,57 @@ public class MealServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String action = req.getParameter("action");
-        String id = req.getParameter("id");
+        String action = request.getParameter("action");
+        String id = request.getParameter("id");
 
         switch (action == null ? "all" : action) {
             case ("delete"):
                 controller.delete(Long.valueOf(id));
-                resp.sendRedirect("meals");
+                response.sendRedirect("meals");
                 break;
             case ("update"):
             case ("create"):
                 Meal meal = id != null ? controller.get(Long.valueOf(id)) : new Meal(null, SecurityUtil.authUserId(), LocalDateTime.now(), "", 1000);
-                req.setAttribute("meal", meal);
-                req.getRequestDispatcher("/mealForm.jsp").forward(req, resp);
+                request.setAttribute("meal", meal);
+                request.getRequestDispatcher("/mealForm.jsp").forward(request, response);
                 break;
             case ("all"):
             default:
                 List mealWithExceeds = MealsUtil.getFilteredWithExceeded(controller.getAll(), LocalTime.MIN, LocalTime.MAX, 2000);
-                req.setAttribute("meals", mealWithExceeds);
-                req.getRequestDispatcher("/meals.jsp").forward(req, resp);
+                request.setAttribute("meals", mealWithExceeds);
+                request.getRequestDispatcher("/meals.jsp").forward(request, response);
                 break;
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-        String id = req.getParameter("id");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        String action = request.getParameter("action");
+        if (action == null) {
+            String id = request.getParameter("id");
 
-        Meal meal = new Meal(id.isEmpty() ? null : Long.valueOf(id),
-                SecurityUtil.authUserId(),
-                LocalDateTime.parse(req.getParameter("dateTime")),
-                req.getParameter("description"),
-                Integer.parseInt(req.getParameter("calories")));
+            Meal meal = new Meal(id.isEmpty() ? null : Long.valueOf(id),
+                    SecurityUtil.authUserId(),
+                    LocalDateTime.parse(request.getParameter("dateTime")),
+                    request.getParameter("description"),
+                    Integer.parseInt(request.getParameter("calories")));
 
-        if (req.getParameter("id").isEmpty()) {
-            controller.create(meal);
-        } else {
-            controller.update(meal);
+            if (request.getParameter("id").isEmpty()) {
+                controller.create(meal);
+            } else {
+                controller.update(meal);
+            }
+        } else if ("filter".equals(action)) {
+            LocalDate startDate = parseLocalDate(request.getParameter("startDate"));
+            LocalDate endDate = parseLocalDate(request.getParameter("endDate"));
+            LocalTime startTime = parseLocalTime(request.getParameter("startTime"));
+            LocalTime endTime = parseLocalTime(request.getParameter("endTime"));
+            request.setAttribute("meals", controller.getBetween(startDate, startTime, endDate, endTime));
+            request.getRequestDispatcher("/meals.jsp").forward(request, response);
         }
-        resp.sendRedirect("meals");
+        response.sendRedirect("meals");
     }
 }
