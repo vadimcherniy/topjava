@@ -1,9 +1,11 @@
 package ru.javawebinar.topjava.repository.impl;
 
 import org.springframework.stereotype.Repository;
+import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.repository.UserRepository;
 import ru.javawebinar.topjava.model.User;
 
+import javax.annotation.PostConstruct;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -15,11 +17,20 @@ import java.util.stream.Collectors;
 @Repository
 public class InMemoryUserRepositoryImpl implements UserRepository {
 
-    public static final int USER_ID = 1;
-    public static final int ADMIN_ID = 2;
-
     private Map<Long, User> repository = new ConcurrentHashMap<>();
-    private AtomicLong counter = new AtomicLong(0);
+    private AtomicLong counter = new AtomicLong(2);
+
+    public static final long ADMIN_ID = 1;
+    public static final long USER_ID = 2;
+
+    public static final User ADMIN = new User(ADMIN_ID, "Admin", "admin@gmail.com", "admin", Role.ADMIN);
+    public static final User USER = new User(USER_ID, "User", "user@yandex.ru", "password", Role.USER);
+
+    public void init() {
+        repository.clear();
+        repository.put(USER_ID, USER);
+        repository.put(ADMIN_ID, ADMIN);
+    }
 
     @Override
     public User save(User user) {

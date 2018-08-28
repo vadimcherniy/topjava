@@ -37,10 +37,8 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
         Map<Long, Meal> meals = repository.computeIfAbsent(userId, mealMap -> new ConcurrentHashMap<>());
         if (meal.isNew()) {
             meal.setId(counter.incrementAndGet());
-            meals.put(meal.getId(), meal);
-        } else {
-            meals.put(meal.getId(), meal);
         }
+        meals.put(meal.getId(), meal);
         return meal;
     }
 

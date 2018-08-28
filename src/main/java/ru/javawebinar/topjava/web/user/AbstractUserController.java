@@ -5,9 +5,7 @@ import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.UserService;
 
 import java.util.List;
-import org.slf4j.Logger;
 
-import static org.slf4j.LoggerFactory.getLogger;
 import static ru.javawebinar.topjava.util.ValidationUtil.assureIdConsistent;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNew;
 

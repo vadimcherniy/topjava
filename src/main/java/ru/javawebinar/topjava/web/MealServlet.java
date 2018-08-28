@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.MealsUtil;
@@ -22,21 +24,21 @@ import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalDate;
 import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 
 public class MealServlet extends HttpServlet {
-    private static final Logger LOG = getLogger(MealServlet.class);
 
     private MealRestController controller;
-    private ClassPathXmlApplicationContext context;
+    private AnnotationConfigApplicationContext applicationContext;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        context = new ClassPathXmlApplicationContext("spring/spring-app.xml");
-        controller = context.getBean(MealRestController.class);
+        applicationContext = new AnnotationConfigApplicationContext("ru.javawebinar.topjava.*");
+        // ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/spring-app.xml");
+        controller = applicationContext.getBean(MealRestController.class);
     }
 
     @Override
     public void destroy() {
-        context.close();
+        applicationContext.close();
         super.destroy();
     }
 

@@ -9,6 +9,8 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.List;
 
+import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -26,12 +28,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) throws NotFoundException {
-        userRepository.delete(id);
+        checkNotFoundWithId(userRepository.delete(id), id);
     }
 
     @Override
     public User get(Long id) throws NotFoundException {
-        return userRepository.get(id);
+        return checkNotFoundWithId(userRepository.get(id), id);
     }
 
     @Override
