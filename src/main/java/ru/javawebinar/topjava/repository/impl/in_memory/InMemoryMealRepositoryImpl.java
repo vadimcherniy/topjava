@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.repository.impl;
+package ru.javawebinar.topjava.repository.impl.in_memory;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-@Repository
+@Repository("inMemoryMealRepositoryImpl")
 public class InMemoryMealRepositoryImpl implements MealRepository {
 
     private Map<Long, Map<Long, Meal>> repository = new ConcurrentHashMap<>();

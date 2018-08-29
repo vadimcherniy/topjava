@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.javawebinar.topjava.repository.UserRepository;
 import ru.javawebinar.topjava.model.User;
@@ -17,6 +18,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
+    @Qualifier("inMemoryUserRepositoryImpl")
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

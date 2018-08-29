@@ -9,13 +9,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
-import ru.javawebinar.topjava.repository.impl.InMemoryUserRepositoryImpl;
+import ru.javawebinar.topjava.repository.impl.in_memory.InMemoryUserRepositoryImpl;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.Collection;
 
-import static ru.javawebinar.topjava.repository.impl.InMemoryUserRepositoryImpl.ADMIN;
-import static ru.javawebinar.topjava.repository.impl.InMemoryUserRepositoryImpl.USER_ID;
+import static ru.javawebinar.topjava.repository.impl.in_memory.InMemoryUserRepositoryImpl.ADMIN;
+import static ru.javawebinar.topjava.repository.impl.in_memory.InMemoryUserRepositoryImpl.USER_ID;
 
 @ContextConfiguration("classpath:spring/spring-app.xml")
 @RunWith(SpringJUnit4ClassRunner.class)

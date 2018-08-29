@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.repository.impl;
+package ru.javawebinar.topjava.repository.impl.in_memory;
 
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Role;
@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
-@Repository
+@Repository("inMemoryUserRepositoryImpl")
 public class InMemoryUserRepositoryImpl implements UserRepository {
 
     private Map<Long, User> repository = new ConcurrentHashMap<>();
