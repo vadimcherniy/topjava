@@ -18,7 +18,7 @@ public abstract class AbstractUserController {
         return service.getAll();
     }
 
-    public User get(Long id) {
+    public User get(Integer id) {
         return service.get(id);
     }
 
@@ -27,11 +27,11 @@ public abstract class AbstractUserController {
         return service.create(user);
     }
 
-    public void delete(Long id) {
+    public void delete(Integer id) {
         service.delete(id);
     }
 
-    public void update(User user, Long id) {
+    public void update(User user, Integer id) {
         assureIdConsistent(user, id);
         service.update(user);
     }

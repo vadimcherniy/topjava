@@ -6,11 +6,11 @@ CREATE SEQUENCE global_seq START 100000;
 
 CREATE TABLE users
 (
-  id               BIGINT PRIMARY KEY DEFAULT nextval('global_seq'),
+  id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name             VARCHAR                 NOT NULL,
   email            VARCHAR                 NOT NULL,
   password         VARCHAR                 NOT NULL,
-  registered       TIMESTAMP DEFAULT now() NOT NULL,
+  created          TIMESTAMP DEFAULT now() NOT NULL,
   enabled          BOOL DEFAULT TRUE       NOT NULL,
   calories_per_day INTEGER DEFAULT 2000    NOT NULL
 );

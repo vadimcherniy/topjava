@@ -19,7 +19,7 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("id");
-        SecurityUtil.setAuthUserId(Long.valueOf(userId));
+        SecurityUtil.setAuthUserId(Integer.valueOf(userId));
         request.getRequestDispatcher("/meals").forward(request, response);
     }
 }

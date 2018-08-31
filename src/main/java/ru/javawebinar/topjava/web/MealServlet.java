@@ -50,12 +50,12 @@ public class MealServlet extends HttpServlet {
 
         switch (action == null ? "all" : action) {
             case ("delete"):
-                controller.delete(Long.valueOf(id));
+                controller.delete(Integer.valueOf(id));
                 response.sendRedirect("meals");
                 break;
             case ("update"):
             case ("create"):
-                Meal meal = id != null ? controller.get(Long.valueOf(id)) : new Meal(null, SecurityUtil.authUserId(), LocalDateTime.now(), "", 1000);
+                Meal meal = id != null ? controller.get(Integer.valueOf(id)) : new Meal(null, SecurityUtil.authUserId(), LocalDateTime.now(), "", 1000);
                 request.setAttribute("meal", meal);
                 request.getRequestDispatcher("/mealForm.jsp").forward(request, response);
                 break;
@@ -75,7 +75,7 @@ public class MealServlet extends HttpServlet {
         if (action == null) {
             String id = request.getParameter("id");
 
-            Meal meal = new Meal(id.isEmpty() ? null : Long.valueOf(id),
+            Meal meal = new Meal(id.isEmpty() ? null : Integer.valueOf(id),
                     SecurityUtil.authUserId(),
                     LocalDateTime.parse(request.getParameter("dateTime")),
                     request.getParameter("description"),

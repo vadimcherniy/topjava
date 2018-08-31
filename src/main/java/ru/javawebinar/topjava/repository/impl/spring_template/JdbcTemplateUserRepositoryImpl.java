@@ -3,18 +3,12 @@ package ru.javawebinar.topjava.repository.impl.spring_template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
-import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
 
-import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 @Repository("jdbcTemplateUserRepositoryImpl")
@@ -39,11 +33,11 @@ public class JdbcTemplateUserRepositoryImpl implements UserRepository {
                 .addValue("name", user.getName())
                 .addValue("email", user.getEmail())
                 .addValue("password", user.getPassword())
-                .addValue("registered", user.getCreated())
+                .addValue("created", user.getCreated())
                 .addValue("enabled", user.isEnabled())
                 .addValue("calories_per_day", user.getCaloriesPerDay());
         if (user.isNew()) {
-            user.setId((long)jdbcInsert.executeAndReturnKey(map));
+            user.setId((int)jdbcInsert.executeAndReturnKey(map));
             return user;
         } else {
             return jdbcInsert.execute(map) != 0 ? user : null;
@@ -51,13 +45,12 @@ public class JdbcTemplateUserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean delete(long id) {
-        List<User> userList = jdbcTemplate.query("DELETE FROM users WHERE id = ?", ROW_MAPPER, id);
-        return !userList.isEmpty();
+    public boolean delete(Integer id) {
+        return jdbcTemplate.update("DELETE FROM users WHERE id = ?", id) != 0;
     }
 
     @Override
-    public User get(long id) {
+    public User get(Integer id) {
         List<User> userList = jdbcTemplate.query("SELECT * FROM users WHERE id = ?", ROW_MAPPER, id);
         return userList.isEmpty() ? null : userList.get(0);
     }

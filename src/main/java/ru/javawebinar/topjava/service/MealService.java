@@ -9,19 +9,19 @@ import java.util.List;
 
 public interface MealService {
 
-    Meal crete(Meal meal, Long userId);
+    Meal crete(Meal meal, Integer userId);
 
-    Meal update(Meal meal, Long userId);
+    Meal update(Meal meal, Integer userId);
 
-    void delete(Long id, Long userId);
+    void delete(Integer id, Integer userId);
 
-    Meal get(Long id, Long userId);
+    Meal get(Integer id, Integer userId);
 
-    default List<Meal> getBetweenDates(LocalDate startDate, LocalDate endDate, Long userId) {
+    default List<Meal> getBetweenDates(LocalDate startDate, LocalDate endDate, Integer userId) {
         return getBetweenDateTimes(LocalDateTime.of(startDate, LocalTime.MIN), LocalDateTime.of(endDate, LocalTime.MAX), userId);
     }
 
-    List<Meal> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, Long userId);
+    List<Meal> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer userId);
 
-    List getAll(Long userId);
+    List getAll(Integer userId);
 }

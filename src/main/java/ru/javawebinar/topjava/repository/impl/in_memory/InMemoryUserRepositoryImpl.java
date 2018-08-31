@@ -1,30 +1,23 @@
 package ru.javawebinar.topjava.repository.impl.in_memory;
 
 import org.springframework.stereotype.Repository;
-import ru.javawebinar.topjava.model.Role;
-import ru.javawebinar.topjava.repository.UserRepository;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.repository.UserRepository;
 
-import javax.annotation.PostConstruct;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
+
+import static ru.javawebinar.topjava.UserTestData.*;
 
 @Repository("inMemoryUserRepositoryImpl")
 public class InMemoryUserRepositoryImpl implements UserRepository {
 
-    private Map<Long, User> repository = new ConcurrentHashMap<>();
-    private AtomicLong counter = new AtomicLong(2);
-
-    public static final long ADMIN_ID = 1;
-    public static final long USER_ID = 2;
-
-    public static final User ADMIN = new User(ADMIN_ID, "Admin", "admin@gmail.com", "admin", Role.ADMIN);
-    public static final User USER = new User(USER_ID, "User", "user@yandex.ru", "password", Role.USER);
+    private Map<Integer, User> repository = new ConcurrentHashMap<>();
+    private AtomicInteger counter = new AtomicInteger(2);
 
     public void init() {
         repository.clear();
@@ -43,12 +36,12 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean delete(long id) {
+    public boolean delete(Integer id) {
         return repository.remove(id) != null;
     }
 
     @Override
-    public User get(long id) {
+    public User get(Integer id) {
         return repository.get(id);
     }
 

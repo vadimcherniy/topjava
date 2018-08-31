@@ -36,11 +36,11 @@ public class MealRestController {
         return mealService.update(meal, SecurityUtil.authUserId());
     }
 
-    public void delete(Long id) {
+    public void delete(Integer id) {
         mealService.delete(id, SecurityUtil.authUserId());
     }
 
-    public Meal get(Long id) {
+    public Meal get(Integer id) {
         return mealService.get(id, SecurityUtil.authUserId());
     }
 

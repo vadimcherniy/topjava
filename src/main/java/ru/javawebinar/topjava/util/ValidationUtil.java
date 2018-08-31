@@ -5,11 +5,11 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 public class ValidationUtil {
 
-    public static <T> T checkNotFoundWithId(T object, Long id) {
+    public static <T> T checkNotFoundWithId(T object, Integer id) {
         return checkNotFound(object, "id=" + id);
     }
 
-    public static void checkNotFoundWithId(boolean found, Long id) {
+    public static void checkNotFoundWithId(boolean found, Integer id) {
         checkNotFound(found, "id=" + id);
     }
 
@@ -30,7 +30,7 @@ public class ValidationUtil {
         }
     }
 
-    public static void assureIdConsistent(AbstractBaseEntity entity, Long id) {
+    public static void assureIdConsistent(AbstractBaseEntity entity, Integer id) {
         if (entity.isNew()) {
             entity.setId(id);
         } else if (entity.getId() != id) {

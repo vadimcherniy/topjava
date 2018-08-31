@@ -9,10 +9,10 @@ public interface UserRepository {
     User save(User user);
 
     // false if not found
-    boolean delete(long id);
+    boolean delete(Integer id);
 
     // null if not found
-    User get(long id);
+    User get(Integer id);
 
     // null if not found
     User getByEmail(String email);

@@ -10,6 +10,7 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.List;
 
+import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFound;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -29,18 +30,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(Long id) throws NotFoundException {
+    public void delete(Integer id) throws NotFoundException {
         checkNotFoundWithId(userRepository.delete(id), id);
     }
 
     @Override
-    public User get(Long id) throws NotFoundException {
+    public User get(Integer id) throws NotFoundException {
         return checkNotFoundWithId(userRepository.get(id), id);
     }
 
     @Override
     public User getByEmail(String email) throws NotFoundException {
-        return userRepository.getByEmail(email);
+        return checkNotFound(userRepository.getByEmail(email), "User with email = " + email + " not found");
     }
 
     @Override

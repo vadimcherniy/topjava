@@ -9,9 +9,9 @@ public interface UserService {
 
     User create(User user);
 
-    void delete(Long id) throws NotFoundException;
+    void delete(Integer id) throws NotFoundException;
 
-    User get(Long id) throws NotFoundException;
+    User get(Integer id) throws NotFoundException;
 
     User getByEmail(String email) throws NotFoundException;
 

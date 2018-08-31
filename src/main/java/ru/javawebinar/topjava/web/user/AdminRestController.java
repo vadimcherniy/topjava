@@ -14,7 +14,7 @@ public class AdminRestController extends AbstractUserController {
     }
 
     @Override
-    public User get(Long id) {
+    public User get(Integer id) {
         return super.get(id);
     }
 
@@ -24,12 +24,12 @@ public class AdminRestController extends AbstractUserController {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Integer id) {
         super.delete(id);
     }
 
     @Override
-    public void update(User user, Long id) {
+    public void update(User user, Integer id) {
         super.update(user, id);
     }
 
