@@ -27,9 +27,9 @@ public class JdbcTemplateUserRepositoryImpl implements UserRepository {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate, DataSource dataSource) {
-        jdbcInsert = new SimpleJdbcInsert(dataSource).withTableName("users").usingGeneratedKeyColumns("id");
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+        jdbcInsert = new SimpleJdbcInsert(jdbcTemplate).withTableName("users").usingGeneratedKeyColumns("id");
     }
 
     @Override
@@ -44,10 +44,10 @@ public class JdbcTemplateUserRepositoryImpl implements UserRepository {
                 .addValue("calories_per_day", user.getCaloriesPerDay());
         if (user.isNew()) {
             user.setId((long)jdbcInsert.executeAndReturnKey(map));
+            return user;
         } else {
-
+            return jdbcInsert.execute(map) != 0 ? user : null;
         }
-        return user;
     }
 
     @Override
