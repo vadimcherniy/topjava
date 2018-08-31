@@ -19,7 +19,7 @@ import static ru.javawebinar.topjava.repository.impl.in_memory.InMemoryUserRepos
 
 @ContextConfiguration("classpath:spring/spring-app.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-public class AdminRestControllerTest {
+public class AdminRestControllerInMemoryTest {
 
     @Autowired
     private AdminRestController controller;

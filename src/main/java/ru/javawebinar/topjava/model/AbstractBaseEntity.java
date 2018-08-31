@@ -4,6 +4,9 @@ public abstract class AbstractBaseEntity {
 
     private Long id;
 
+    public AbstractBaseEntity() {
+    }
+
     public AbstractBaseEntity(Long id) {
         this.id = id;
     }

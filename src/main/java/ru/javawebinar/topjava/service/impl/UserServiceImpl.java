@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    @Qualifier("inMemoryUserRepositoryImpl")
+    @Qualifier("jdbcTemplateUserRepositoryImpl")
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
