@@ -13,12 +13,11 @@ import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static ru.javawebinar.topjava.UserTestData.ADMIN;
-import static ru.javawebinar.topjava.UserTestData.USER;
-import static ru.javawebinar.topjava.UserTestData.USER_ID;
+import static ru.javawebinar.topjava.UserTestData.*;
 
 @ContextConfiguration("classpath:spring/spring-app.xml")
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
@@ -45,6 +44,15 @@ public class UserServiceTest {
 
     @Test
     public void delete() {
+        service.delete(USER_ID);
+        List<User> actual = service.getAll();
+        List<User> expected = Collections.singletonList(ADMIN);
+        assertThat(actual).usingDefaultElementComparator().isEqualTo(expected);
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void deleteNotFound() {
+        service.delete(-1);
     }
 
     @Test
@@ -60,8 +68,8 @@ public class UserServiceTest {
 
     @Test
     public void getByEmail() {
-        User user = service.getByEmail(ADMIN.getEmail());
-        assertThat(user).isEqualToIgnoringGivenFields(ADMIN, "created", "roles");
+        User user = service.getByEmail(USER.getEmail());
+        assertThat(user).isEqualToIgnoringGivenFields(USER, "created", "roles");
     }
 
     @Test(expected = NotFoundException.class)
@@ -71,9 +79,17 @@ public class UserServiceTest {
 
     @Test
     public void update() {
+        ADMIN.setName("SuperAdmin");
+        service.update(ADMIN);
+        User actual = service.get(ADMIN_ID);
+        User expected = new User(ADMIN_ID, "SuperAdmin", "admin@gmail.com", "admin", Role.ADMIN);
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, "created", "roles");
     }
 
     @Test
     public void getAll() {
+        List<User> expected = Arrays.asList(ADMIN, USER);
+        List<User> actual = service.getAll();
+        assertThat(actual).usingDefaultElementComparator().isEqualTo(expected);
     }
 }

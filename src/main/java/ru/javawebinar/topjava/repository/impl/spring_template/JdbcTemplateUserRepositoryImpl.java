@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.User;
@@ -19,6 +20,13 @@ public class JdbcTemplateUserRepositoryImpl implements UserRepository {
     private SimpleJdbcInsert jdbcInsert;
 
     private JdbcTemplate jdbcTemplate;
+
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Autowired
+    public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
 
     @Autowired
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -38,10 +46,12 @@ public class JdbcTemplateUserRepositoryImpl implements UserRepository {
                 .addValue("calories_per_day", user.getCaloriesPerDay());
         if (user.isNew()) {
             user.setId((int)jdbcInsert.executeAndReturnKey(map));
-            return user;
-        } else {
-            return jdbcInsert.execute(map) != 0 ? user : null;
+        } else if (namedParameterJdbcTemplate.update(
+                "UPDATE users SET name=:name, email=:email, password=:password, " +
+                        "created=:created, enabled=:enabled, calories_per_day=:calories_per_day WHERE id=:id", map) == 0) {
+            return null;
         }
+        return user;
     }
 
     @Override
