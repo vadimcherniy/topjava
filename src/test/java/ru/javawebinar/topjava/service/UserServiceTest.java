@@ -12,11 +12,6 @@ import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 import static ru.javawebinar.topjava.UserTestData.*;
 
 @ContextConfiguration("classpath:spring/spring-app.xml")
@@ -31,9 +26,7 @@ public class UserServiceTest {
     public void create() {
         User newUser = new User(null, "newUser", "user@user.com", "pass", Role.USER);
         newUser.setId(service.create(newUser).getId());
-        List<User> actual = service.getAll();
-        List<User> expected = Arrays.asList(ADMIN, newUser, USER);
-        assertThat(actual).usingElementComparatorIgnoringFields("created", "roles").isEqualTo(expected);
+        assertMatch(service.getAll(), ADMIN, newUser, USER);
     }
 
     @Test(expected = DataAccessException.class)
@@ -45,9 +38,7 @@ public class UserServiceTest {
     @Test
     public void delete() {
         service.delete(USER_ID);
-        List<User> actual = service.getAll();
-        List<User> expected = Collections.singletonList(ADMIN);
-        assertThat(actual).usingDefaultElementComparator().isEqualTo(expected);
+        assertMatch(service.getAll(), ADMIN);
     }
 
     @Test(expected = NotFoundException.class)
@@ -58,7 +49,7 @@ public class UserServiceTest {
     @Test
     public void get() {
         User user = service.get(USER_ID);
-        assertThat(user).isEqualToIgnoringGivenFields(USER, "created", "roles");
+        assertMatch(user, USER);
     }
 
     @Test(expected = NotFoundException.class)
@@ -69,7 +60,7 @@ public class UserServiceTest {
     @Test
     public void getByEmail() {
         User user = service.getByEmail(USER.getEmail());
-        assertThat(user).isEqualToIgnoringGivenFields(USER, "created", "roles");
+        assertMatch(user, USER);
     }
 
     @Test(expected = NotFoundException.class)
@@ -79,17 +70,15 @@ public class UserServiceTest {
 
     @Test
     public void update() {
-        ADMIN.setName("SuperAdmin");
-        service.update(ADMIN);
-        User actual = service.get(ADMIN_ID);
-        User expected = new User(ADMIN_ID, "SuperAdmin", "admin@gmail.com", "admin", Role.ADMIN);
-        assertThat(actual).isEqualToIgnoringGivenFields(expected, "created", "roles");
+        User newUser = new User(USER);
+        newUser.setName("NewUser");
+        newUser.setCaloriesPerDay(2500);
+        service.update(newUser);
+        assertMatch(service.get(USER_ID), newUser);
     }
 
     @Test
     public void getAll() {
-        List<User> expected = Arrays.asList(ADMIN, USER);
-        List<User> actual = service.getAll();
-        assertThat(actual).usingDefaultElementComparator().isEqualTo(expected);
+        assertMatch(service.getAll(), ADMIN, USER);
     }
 }

@@ -1,25 +1,21 @@
 package ru.javawebinar.topjava.web;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.web.meal.MealRestController;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
-import static org.slf4j.LoggerFactory.getLogger;
 import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalDate;
 import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 
@@ -31,8 +27,8 @@ public class MealServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        applicationContext = new AnnotationConfigApplicationContext("ru.javawebinar.topjava.*");
-        // ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/spring-app.xml");
+        //applicationContext = new AnnotationConfigApplicationContext("ru.javawebinar.topjava.*");
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/spring-app.xml");
         controller = applicationContext.getBean(MealRestController.class);
     }
 
@@ -55,7 +51,7 @@ public class MealServlet extends HttpServlet {
                 break;
             case ("update"):
             case ("create"):
-                Meal meal = id != null ? controller.get(Integer.valueOf(id)) : new Meal(null, SecurityUtil.authUserId(), LocalDateTime.now(), "", 1000);
+                Meal meal = id != null ? controller.get(Integer.valueOf(id)) : new Meal(null, LocalDateTime.now(), "", 1000);
                 request.setAttribute("meal", meal);
                 request.getRequestDispatcher("/mealForm.jsp").forward(request, response);
                 break;
@@ -76,7 +72,6 @@ public class MealServlet extends HttpServlet {
             String id = request.getParameter("id");
 
             Meal meal = new Meal(id.isEmpty() ? null : Integer.valueOf(id),
-                    SecurityUtil.authUserId(),
                     LocalDateTime.parse(request.getParameter("dateTime")),
                     request.getParameter("description"),
                     Integer.parseInt(request.getParameter("calories")));

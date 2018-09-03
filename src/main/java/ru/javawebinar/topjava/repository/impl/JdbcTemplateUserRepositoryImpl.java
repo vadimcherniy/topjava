@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.repository.impl.spring_template;
+package ru.javawebinar.topjava.repository.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -12,7 +12,7 @@ import ru.javawebinar.topjava.repository.UserRepository;
 
 import java.util.List;
 
-@Repository("jdbcTemplateUserRepositoryImpl")
+@Repository
 public class JdbcTemplateUserRepositoryImpl implements UserRepository {
 
     private static final BeanPropertyRowMapper<User> ROW_MAPPER = BeanPropertyRowMapper.newInstance(User.class);
