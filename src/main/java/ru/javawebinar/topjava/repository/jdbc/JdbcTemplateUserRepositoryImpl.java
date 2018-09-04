@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.repository.impl;
+package ru.javawebinar.topjava.repository.jdbc;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
