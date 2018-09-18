@@ -1,17 +1,32 @@
 package ru.javawebinar.topjava.model;
 
+import org.hibernate.validator.constraints.Range;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+@Entity
+@Table(name = "meals")
 public class Meal extends AbstractBaseEntity {
 
+    @NotNull
+    @Column(name = "date_time", nullable = false)
     private LocalDateTime dateTime;
 
+    @NotBlank
+    @Column(name = "description", nullable = false)
     private String description;
 
+    @NotNull
+    @Range(min = 10)
+    @Column(name = "calories", nullable = false)
     private Integer calories;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public Meal() {}

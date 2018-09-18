@@ -18,6 +18,7 @@ public class MealServiceImpl implements MealService {
     private MealRepository mealRepository;
 
     @Autowired
+    @Qualifier(value = "jpaMealRepositoryImpl")
     public void setMealRepository(MealRepository mealRepository) {
         this.mealRepository = mealRepository;
     }

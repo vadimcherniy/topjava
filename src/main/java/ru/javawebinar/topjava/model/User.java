@@ -6,7 +6,6 @@ import org.springframework.util.CollectionUtils;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.*;
 
@@ -14,7 +13,16 @@ import static ru.javawebinar.topjava.util.MealsUtil.DEFAULT_CALORIES_PER_DAY;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
+@NamedQueries({
+        @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
+        @NamedQuery(name = User.GET_BY_EMAIL, query = "SELECT u FROM User u WHERE u.email=:email"),
+        @NamedQuery(name = User.GET_ALL, query = "SELECT u FROM User u ORDER BY u.name, u.email")
+})
 public class User extends AbstractNamedEntity {
+
+    public static final String DELETE = "User.deleteById";
+    public static final String GET_BY_EMAIL = "User.getByEmail";
+    public static final String GET_ALL = "User.getAll";
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -39,7 +47,7 @@ public class User extends AbstractNamedEntity {
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Role> roles;
 
-    @Column(name = "caloriesPerDay", nullable = false, columnDefinition = "int default 2000")
+    @Column(name = "calories_per_day", nullable = false, columnDefinition = "int default 2000")
     @Range(min = 10, max = 10000)
     private Integer caloriesPerDay = DEFAULT_CALORIES_PER_DAY;
 

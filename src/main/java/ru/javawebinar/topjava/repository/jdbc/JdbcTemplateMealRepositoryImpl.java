@@ -13,7 +13,7 @@ import ru.javawebinar.topjava.repository.MealRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Repository
+@Repository("jdbcTemplateMealRepositoryImpl")
 public class JdbcTemplateMealRepositoryImpl implements MealRepository {
 
     private static final RowMapper<Meal> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Meal.class);
