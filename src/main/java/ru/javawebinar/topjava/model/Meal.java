@@ -24,7 +24,6 @@ public class Meal extends AbstractBaseEntity {
     public static final String GET_ALL = "Meal.getAll";
     public static final String DELETE = "Meal.delete";
     public static final String GET_BETWEEN = "Meal.getBetween";
-    public static final String UPDATE = "Meal.Update";
 
     @NotNull
     @Column(name = "date_time", nullable = false)
@@ -35,7 +34,7 @@ public class Meal extends AbstractBaseEntity {
     private String description;
 
     @NotNull
-    @Range(min = 10)
+    @Range(min = 10, max = 5000)
     @Column(name = "calories", nullable = false)
     private Integer calories;
 

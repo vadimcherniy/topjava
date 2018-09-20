@@ -4,8 +4,10 @@ import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.MealRepository;
+import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -41,10 +43,14 @@ public class JpaMealRepositoryImpl implements MealRepository {
 
     @Override
     public Meal get(Integer id, Integer userId) {
-        return em.createNamedQuery(Meal.GET, Meal.class)
-                .setParameter("id", id)
-                .setParameter("userId", userId)
-                .getSingleResult();
+        try {
+            return em.createNamedQuery(Meal.GET, Meal.class)
+                    .setParameter("id", id)
+                    .setParameter("userId", userId)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            throw new NotFoundException("Not found meal for user with id = " + userId);
+        }
     }
 
     @Override
