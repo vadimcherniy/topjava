@@ -3,8 +3,10 @@ package ru.javawebinar.topjava.repository.jpa;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
+import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -39,7 +41,11 @@ public class JpaUserRepositoryImpl implements UserRepository {
 
     @Override
     public User getByEmail(String email) {
-        return em.createNamedQuery(User.GET_BY_EMAIL, User.class).setParameter("email", email).getSingleResult();
+        try {
+            return em.createNamedQuery(User.GET_BY_EMAIL, User.class).setParameter("email", email).getSingleResult();
+        } catch (NoResultException e) {
+            throw new NotFoundException("Not found user with email = " + email);
+        }
     }
 
     @Override
