@@ -148,6 +148,13 @@
             <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!--Java (resolve java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException in Java 9+)-->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.2.11</version>
+        </dependency>
     </dependencies>
 
     <profiles>
