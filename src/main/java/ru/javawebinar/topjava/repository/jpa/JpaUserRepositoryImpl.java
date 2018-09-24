@@ -1,6 +1,8 @@
 package ru.javawebinar.topjava.repository.jpa;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
@@ -8,10 +10,10 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository("jpaUserRepositoryImpl")
+@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class JpaUserRepositoryImpl implements UserRepository {
 
     @PersistenceContext
