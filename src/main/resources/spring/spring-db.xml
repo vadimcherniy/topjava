@@ -14,7 +14,7 @@
         <jdbc:script encoding="UTF-8" location="classpath:db/populateDB.sql"/>
     </jdbc:initialize-database>
 
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
           p:driverClassName="${database.driver}"
           p:url="${database.url}"
           p:username="${database.username}"
