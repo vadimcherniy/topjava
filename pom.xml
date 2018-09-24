@@ -26,6 +26,9 @@
         <!--DB-->
         <postgresql.version>42.2.2</postgresql.version>
 
+        <!-- Tomcat -->
+        <tomcat.version>9.0.12</tomcat.version>
+
         <!-- ORM -->
         <hibernate.version>5.3.6.Final</hibernate.version>
         <hibernate-validator.version>6.0.12.Final</hibernate-validator.version>
@@ -106,6 +109,12 @@
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jdbc</artifactId>
+            <version>${tomcat.version}</version>
+        </dependency>
+
 
         <!--- ORM -->
         <dependency>
