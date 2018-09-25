@@ -27,9 +27,9 @@ public class MealServiceTest {
 
     @Test
     public void crete() {
-        Meal newMeal = new Meal(null, LocalDateTime.now(), "Diner", 1000);
-        newMeal.setId(service.crete(newMeal, ADMIN_ID).getId());
-        assertMatch(service.getAll(ADMIN_ID), newMeal, ADMIN_MEAL_1, ADMIN_MEAL_2);
+        Meal meal = getCreated();
+        meal.setId(service.crete(meal, USER_ID).getId());
+        assertMatch(service.getAll(USER_ID), meal, MEAL_6, MEAL_5, MEAL_4, MEAL_3, MEAL_2, MEAL_1);
     }
 
     @Test(expected = DataAccessException.class)
@@ -40,18 +40,15 @@ public class MealServiceTest {
 
     @Test
     public void update() {
-        Meal meal = new Meal(ADMIN_MEAL_1);
-        meal.setCalories(1000);
-        meal.setDescription("Breakfast");
-        meal.setDateTime(LocalDateTime.now());
-        service.update(meal, ADMIN_ID);
-        assertMatch(service.get(ADMIN_MEAL_1_ID, ADMIN_ID), meal);
+        Meal meal = getUpdated();
+        service.update(meal, USER_ID);
+        assertMatch(service.get(MEAL_1_ID, USER_ID), meal);
     }
 
     @Test
     public void delete() {
-        service.delete(ADMIN_MEAL_1_ID, ADMIN_ID);
-        assertMatch(service.getAll(ADMIN_ID), ADMIN_MEAL_2);
+        service.delete(MEAL_1_ID, USER_ID);
+        assertMatch(service.getAll(USER_ID), MEAL_6, MEAL_5, MEAL_4, MEAL_3, MEAL_2);
     }
 
     @Test(expected = NotFoundException.class)
@@ -61,7 +58,7 @@ public class MealServiceTest {
 
     @Test
     public void get() {
-        assertMatch(service.get(ADMIN_MEAL_1_ID, ADMIN_ID), ADMIN_MEAL_1);
+        assertMatch(service.get(MEAL_1_ID, USER_ID), MEAL_1);
     }
 
     @Test(expected = NotFoundException.class)
@@ -75,7 +72,7 @@ public class MealServiceTest {
                 LocalDate.of(2018, 9, 1),
                 LocalDate.of(2018, 9, 1),
                 ADMIN_ID);
-        assertMatch(actual, ADMIN_MEAL_1, ADMIN_MEAL_2);
+        assertMatch(actual, ADMIN_MEAL_2, ADMIN_MEAL_1);
     }
 
     @Test
@@ -84,12 +81,12 @@ public class MealServiceTest {
                 LocalDateTime.of(2018, 9, 1, 8, 0, 0),
                 LocalDateTime.of(2018, 9, 1, 12, 0, 0),
                 ADMIN_ID);
-        assertMatch(actual, ADMIN_MEAL_2);
+        assertMatch(actual, ADMIN_MEAL_1);
     }
 
     @Test
     public void getAll() {
-        assertMatch(service.getAll(ADMIN_ID), ADMIN_MEAL_1, ADMIN_MEAL_2);
+        assertMatch(service.getAll(ADMIN_ID), ADMIN_MEAL_2, ADMIN_MEAL_1);
     }
 
 }
