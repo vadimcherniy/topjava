@@ -21,7 +21,7 @@ import static ru.javawebinar.topjava.util.MealsUtil.DEFAULT_CALORIES_PER_DAY;
 public class User extends AbstractNamedEntity {
 
     public static final String DELETE = "User.deleteById";
-    public static final String GET_BY_EMAIL = "User.getByEmail";
+    public static final String GET_BY_EMAIL = "User.findByEmail";
     public static final String GET_ALL = "User.getAll";
 
     @Column(name = "email", nullable = false, unique = true)
