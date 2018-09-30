@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Repository("jpaMealRepositoryImpl")
+@Repository
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class JpaMealRepositoryImpl implements MealRepository {
 

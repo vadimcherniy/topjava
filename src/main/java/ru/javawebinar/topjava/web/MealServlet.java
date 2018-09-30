@@ -1,7 +1,7 @@
 package ru.javawebinar.topjava.web;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.javawebinar.topjava.Profiles;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.web.meal.MealRestController;
@@ -22,13 +22,15 @@ import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 public class MealServlet extends HttpServlet {
 
     private MealRestController controller;
-    private AnnotationConfigApplicationContext applicationContext;
+    private ClassPathXmlApplicationContext applicationContext;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        //applicationContext = new AnnotationConfigApplicationContext("ru.javawebinar.topjava.*");
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/spring-app.xml");
+        applicationContext = new ClassPathXmlApplicationContext();
+        applicationContext.getEnvironment().setActiveProfiles(Profiles.JPA);
+        applicationContext.setConfigLocation("classpath:spring/spring-app.xml");
+        applicationContext.refresh();
         controller = applicationContext.getBean(MealRestController.class);
     }
 

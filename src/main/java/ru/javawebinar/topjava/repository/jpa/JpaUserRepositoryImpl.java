@@ -12,7 +12,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Repository("jpaUserRepositoryImpl")
+@Repository
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public class JpaUserRepositoryImpl implements UserRepository {
 

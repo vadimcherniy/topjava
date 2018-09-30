@@ -8,10 +8,11 @@ import ru.javawebinar.topjava.repository.UserRepository;
 
 import java.util.List;
 
-@Repository("dataJpaUserRepositoryImpl")
+@Repository
 public class DataJpaUserRepositoryImpl implements UserRepository {
 
-    private static final Sort SORT_NAME_EMAIL = new Sort("name", "email");
+    private static final Sort SORT_NAME_EMAIL = Sort.by("name", "email");
+
     private CrudUserRepository proxy;
 
     @Autowired

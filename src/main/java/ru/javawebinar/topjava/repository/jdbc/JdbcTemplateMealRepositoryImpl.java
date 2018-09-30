@@ -15,7 +15,7 @@ import javax.persistence.NoResultException;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Repository("jdbcTemplateMealRepositoryImpl")
+@Repository
 public class JdbcTemplateMealRepositoryImpl implements MealRepository {
 
     private static final RowMapper<Meal> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Meal.class);
