@@ -31,7 +31,7 @@
         </bean>
     </beans>
 
-    <beans profile="jpa, data_jpa">
+    <beans profile="jpa, datajpa">
         <tx:annotation-driven/>
 
         <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" name="entityManagerFactory"
@@ -75,7 +75,7 @@
         <context:component-scan base-package="ru.javawebinar.topjava.repository.jpa"/>
     </beans>
 
-    <beans profile="data_jpa">
+    <beans profile="datajpa">
         <jpa:repositories base-package="ru.javawebinar.topjava.repository.datajpa"/>
         <context:component-scan base-package="ru.javawebinar.topjava.repository.datajpa"/>
     </beans>
