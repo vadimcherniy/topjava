@@ -11,38 +11,50 @@ import java.util.List;
 @Repository
 public class DataJpaMealRepositoryImpl implements MealRepository {
 
-    @Autowired
-    private CrudMealRepository crudMeal;
+    private CrudMealRepository crudMealRepository;
+    private CrudUserRepository crudUserRepository;
 
     @Autowired
-    private CrudUserRepository crudUser;
+    public void setCrudMealRepository(CrudMealRepository crudMealRepository) {
+        this.crudMealRepository = crudMealRepository;
+    }
+
+    @Autowired
+    public void setCrudUserRepository(CrudUserRepository crudUserRepository) {
+        this.crudUserRepository = crudUserRepository;
+    }
 
     @Override
     public Meal save(Meal meal, Integer userId) {
         if (!meal.isNew() && get(meal.getId(), userId) == null) {
             return null;
         }
-        meal.setUser(crudUser.getOne(userId));
-        return crudMeal.save(meal);
+        meal.setUser(crudUserRepository.getOne(userId));
+        return crudMealRepository.save(meal);
     }
 
     @Override
     public boolean delete(Integer id, Integer userId) {
-        return crudMeal.delete(id, userId) != 0;
+        return crudMealRepository.delete(id, userId) != 0;
     }
 
     @Override
     public Meal get(Integer id, Integer userId) {
-        return crudMeal.getWithUser(id, userId).orElse(null);
+        return crudMealRepository.get(id, userId).orElse(null);
     }
 
     @Override
     public List<Meal> getBetween(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer userId) {
-        return crudMeal.getBetween(startDateTime, endDateTime, userId);
+        return crudMealRepository.getBetween(startDateTime, endDateTime, userId);
     }
 
     @Override
     public List getAll(Integer userId) {
-        return crudMeal.getAll(userId);
+        return crudMealRepository.getAll(userId);
+    }
+
+    @Override
+    public Meal getWithUser(Integer id, Integer userId) {
+        return crudMealRepository.getWithUser(id, userId).orElse(null);
     }
 }

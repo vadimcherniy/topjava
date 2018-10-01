@@ -93,4 +93,9 @@ public class MealServiceTest {
         assertMatch(service.getAll(ADMIN_ID), ADMIN_MEAL_2, ADMIN_MEAL_1);
     }
 
+    @Test
+    public void getWithUser() {
+        assertMatch(service.getWithUser(MEAL_1_ID, USER_ID), MEAL_1);
+    }
+
 }

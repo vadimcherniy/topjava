@@ -16,4 +16,8 @@ public interface MealRepository {
     List<Meal> getBetween(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer userId);
 
     List getAll(Integer userId);
+
+    default Meal getWithUser(Integer id, Integer userId) {
+        throw new UnsupportedOperationException();
+    }
 }

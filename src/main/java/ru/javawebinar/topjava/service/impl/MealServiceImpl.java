@@ -50,4 +50,9 @@ public class MealServiceImpl implements MealService {
     public List getAll(Integer userId) {
         return mealRepository.getAll(userId);
     }
+
+    @Override
+    public Meal getWithUser(Integer id, Integer userId) {
+        return mealRepository.getWithUser(id, userId);
+    }
 }

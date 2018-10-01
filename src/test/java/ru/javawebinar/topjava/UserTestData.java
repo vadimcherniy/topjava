@@ -28,4 +28,15 @@ public class UserTestData {
     public static void assertMatch(Iterable<User> actual, Iterable<User> expected) {
         assertThat(actual).usingElementComparatorIgnoringFields("created", "roles", "meals").isEqualTo(expected);
     }
+
+    public static User getUpdated() {
+        User updatedUser = new User(USER);
+        updatedUser.setName("Обновленный пользователь");
+        updatedUser.setCaloriesPerDay(2500);
+        return updatedUser;
+    }
+
+    public static User getCreated() {
+        return new User(null, "Новый пользователь", "user@user.com", "pass", Role.USER);
+    }
 }

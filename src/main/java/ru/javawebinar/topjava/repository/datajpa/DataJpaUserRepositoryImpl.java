@@ -13,35 +13,40 @@ public class DataJpaUserRepositoryImpl implements UserRepository {
 
     private static final Sort SORT_NAME_EMAIL = Sort.by("name", "email");
 
-    private CrudUserRepository proxy;
+    private CrudUserRepository crudUserRepository;
 
     @Autowired
-    public void setProxy(CrudUserRepository proxy) {
-        this.proxy = proxy;
+    public void setCrudUserRepository(CrudUserRepository crudUserRepository) {
+        this.crudUserRepository = crudUserRepository;
     }
 
     @Override
     public User save(User user) {
-        return proxy.save(user);
+        return crudUserRepository.save(user);
     }
 
     @Override
     public boolean delete(Integer id) {
-        return proxy.delete(id) != 0;
+        return crudUserRepository.delete(id) != 0;
     }
 
     @Override
     public User get(Integer id) {
-        return proxy.findById(id).orElse(null);
+        return crudUserRepository.findById(id).orElse(null);
     }
 
     @Override
     public User getByEmail(String email) {
-        return proxy.findByEmail(email);
+        return crudUserRepository.findByEmail(email);
     }
 
     @Override
     public List<User> getAll() {
-        return proxy.findAll(SORT_NAME_EMAIL);
+        return crudUserRepository.findAll(SORT_NAME_EMAIL);
+    }
+
+    @Override
+    public User getWithMeals(Integer id) {
+        return crudUserRepository.getWithMeals(id);
     }
 }

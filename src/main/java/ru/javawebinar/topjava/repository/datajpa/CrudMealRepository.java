@@ -14,6 +14,9 @@ import java.util.Optional;
 public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
 
     @Query("SELECT m FROM Meal m WHERE m.id =?1 and m.user.id =?2")
+    Optional<Meal> get(Integer id, Integer userId);
+
+    @Query("SELECT m FROM Meal m JOIN FETCH m.user WHERE m.id =?1 and m.user.id =?2")
     Optional<Meal> getWithUser(Integer id, Integer userId);
 
     @Transactional
