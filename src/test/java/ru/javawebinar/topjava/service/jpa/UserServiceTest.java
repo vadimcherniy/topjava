@@ -28,9 +28,9 @@ public class UserServiceTest {
 
     @Test
     public void create() {
-        User newUser = new User(null, "newUser", "user@user.com", "pass", Role.USER);
+        User newUser = getCreated();
         newUser.setId(service.create(newUser).getId());
-        assertMatch(service.getAll(), ADMIN, newUser, USER);
+        assertMatch(service.getAll(), ADMIN, USER, newUser);
     }
 
     @Test(expected = DataAccessException.class)
@@ -74,11 +74,8 @@ public class UserServiceTest {
 
     @Test
     public void update() {
-        User newUser = new User(USER);
-        newUser.setName("NewUser");
-        newUser.setCaloriesPerDay(2500);
-        service.update(newUser);
-        assertMatch(service.get(USER_ID), newUser);
+        service.update(getUpdated());
+        assertMatch(service.get(USER_ID), getUpdated());
     }
 
     @Test
