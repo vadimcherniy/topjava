@@ -23,7 +23,7 @@ import static ru.javawebinar.topjava.MealTestData.*;
 @ContextConfiguration("classpath:spring/spring-app.xml")
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles(Profiles.DATAJPA)
+@ActiveProfiles({Profiles.DATAJPA, Profiles.POSTGRES})
 public class MealServiceTest {
 
     @Autowired

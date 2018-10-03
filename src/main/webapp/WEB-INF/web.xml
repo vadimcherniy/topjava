@@ -8,7 +8,7 @@
 
     <context-param>
         <param-name>spring.profiles.default</param-name>
-        <param-value>jpa</param-value>
+        <param-value>postgres,datajpa</param-value>
     </context-param>
 
     <context-param>
@@ -21,6 +21,20 @@
     </listener>
 
     <servlet>
+        <servlet-name>dispatcher-mvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/spring-mvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher-mvc</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!--<servlet>
         <servlet-name>userServlet</servlet-name>
         <servlet-class>ru.javawebinar.topjava.web.UserServlet</servlet-class>
         <load-on-startup>0</load-on-startup>
@@ -38,6 +52,6 @@
     <servlet-mapping>
         <servlet-name>mealServlet</servlet-name>
         <url-pattern>/meals</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 
 </web-app>
