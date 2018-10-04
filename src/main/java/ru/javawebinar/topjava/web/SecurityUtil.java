@@ -4,7 +4,7 @@ import static ru.javawebinar.topjava.util.MealsUtil.DEFAULT_CALORIES_PER_DAY;
 
 public class SecurityUtil {
 
-    private static Integer authUserId;
+    private static Integer authUserId = 100001;
 
     public static void setAuthUserId(Integer id) {
         authUserId = id;

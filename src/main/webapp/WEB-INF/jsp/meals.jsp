@@ -5,11 +5,11 @@
 <html>
 <head>
     <title>Meal list</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
 <section>
-    <h3><a href="index.html">Home</a></h3>
+    <h3><a href="../../index.html">Home</a></h3>
     <h2>Meals</h2>
     <form method="post" action="meals?action=filter">
         <dl>

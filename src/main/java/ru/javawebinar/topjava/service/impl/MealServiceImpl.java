@@ -3,10 +3,13 @@ package ru.javawebinar.topjava.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.MealWithExceed;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.service.MealService;
+import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNotFoundWithId;
@@ -48,7 +51,7 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public List getAll(Integer userId) {
-        return mealRepository.getAll(userId);
+        return (List<MealWithExceed>) MealsUtil.getFilteredWithExceeded(mealRepository.getAll(userId), LocalTime.MIN, LocalTime.MAX, MealsUtil.DEFAULT_CALORIES_PER_DAY);
     }
 
     @Override

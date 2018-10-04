@@ -3,6 +3,9 @@ package ru.javawebinar.topjava.web.meal;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.MealWithExceed;
 import ru.javawebinar.topjava.service.MealService;
@@ -44,8 +47,10 @@ public class MealRestController {
         return mealService.get(id, SecurityUtil.authUserId());
     }
 
-    public List getAll() {
-        return mealService.getAll(SecurityUtil.authUserId());
+    @RequestMapping(value = "/meals", method = RequestMethod.GET)
+    public String getAll(Model model) {
+        model.addAttribute("meals", mealService.getAll(SecurityUtil.authUserId()));
+        return "meals";
     }
 
     public List<MealWithExceed> getBetween(LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
