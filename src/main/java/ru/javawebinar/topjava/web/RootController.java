@@ -14,8 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class RootController {
 
-    @Autowired
     private UserService service;
+
+    @Autowired
+    public void setService(UserService service) {
+        this.service = service;
+    }
 
     @GetMapping("/")
     public String root() {
@@ -24,7 +28,7 @@ public class RootController {
 
     @GetMapping("/users")
     public String users(Model model) {
-        model.addAttribute("users", service.getAll());
+        model.addAttribute("userList", service.getAll());
         return "users";
     }
 

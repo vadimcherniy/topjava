@@ -9,8 +9,8 @@
 <section>
     <form method="post" action="users">
         <select name="userId">
-        <option value="100000" selected>User</option>
-        <option value="100001">Admin</option>
+        <option value="100001" selected>User</option>
+        <option value="100000">Admin</option>
     </select>
         <button type="submit">Submit</button>
     </form>

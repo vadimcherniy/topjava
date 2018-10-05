@@ -1,7 +1,6 @@
 package ru.javawebinar.topjava.web.user;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.javawebinar.topjava.model.User;
@@ -11,10 +10,8 @@ import java.util.List;
 @Controller
 public class AdminRestController extends AbstractUserController {
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String getAll(Model model) {
-        model.addAttribute("userList", super.getAll());
-        return "users";
+    public List<User> getAll() {
+        return super.getAll();
     }
 
     @RequestMapping(params = "id", method = RequestMethod.GET)

@@ -10,7 +10,7 @@
 </head>
 <body>
 <section>
-    <h3><a href="../../index.html">Home</a></h3>
+    <h3><a href="./">Home</a></h3>
     <h2>Users</h2>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>

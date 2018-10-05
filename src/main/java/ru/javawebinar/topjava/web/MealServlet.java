@@ -33,7 +33,7 @@ public class MealServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-/*        String action = request.getParameter("action");
+        String action = request.getParameter("action");
         String id = request.getParameter("id");
 
         switch (action == null ? "all" : action) {
@@ -53,12 +53,12 @@ public class MealServlet extends HttpServlet {
                 request.setAttribute("meals", mealWithExceeds);
                 request.getRequestDispatcher("/meals.jsp").forward(request, response);
                 break;
-        }*/
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
         if (action == null) {
             String id = request.getParameter("id");
@@ -81,6 +81,6 @@ public class MealServlet extends HttpServlet {
             request.setAttribute("meals", controller.getBetween(startDate, startTime, endDate, endTime));
             request.getRequestDispatcher("/meals.jsp").forward(request, response);
         }
-        response.sendRedirect("meals");*/
+        response.sendRedirect("meals");
     }
 }
