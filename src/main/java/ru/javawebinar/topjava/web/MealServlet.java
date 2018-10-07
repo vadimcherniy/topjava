@@ -45,7 +45,7 @@ public class MealServlet extends HttpServlet {
             case ("create"):
                 Meal meal = id != null ? controller.get(Integer.valueOf(id)) : new Meal(null, LocalDateTime.now(), "", 1000);
                 request.setAttribute("meal", meal);
-                request.getRequestDispatcher("/mealForm.jsp").forward(request, response);
+                request.getRequestDispatcher("/editMeal.jsp").forward(request, response);
                 break;
             case ("all"):
             default:
