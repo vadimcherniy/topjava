@@ -9,7 +9,7 @@
 </head>
 <body>
 <section>
-    <h3><a href="../../index.html">Home</a></h3>
+    <h3><a href="./">Home</a></h3>
     <h2>Meals</h2>
     <form method="post" action="meals?action=filter">
         <dl>
@@ -51,7 +51,7 @@
             </tr>
         </c:forEach>
     </table>
-    <a href="meals?action=create">Create meal</a>
+    <a href="create">Create meal</a>
 </section>
 </body>
 </html>

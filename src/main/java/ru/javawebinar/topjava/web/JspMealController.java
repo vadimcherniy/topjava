@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
 import ru.javawebinar.topjava.util.MealsUtil;
 
@@ -25,5 +26,11 @@ public class JspMealController {
         List meals = MealsUtil.getFilteredWithExceeded(mealService.getAll(SecurityUtil.authUserId()), LocalTime.MIN, LocalTime.MAX, MealsUtil.DEFAULT_CALORIES_PER_DAY);
         model.addAttribute("meals", meals);
         return "meals";
+    }
+
+    @GetMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("meal", new Meal());
+        return "editMeal";
     }
 }
