@@ -12,8 +12,6 @@
 
     <context:component-scan base-package="ru.javawebinar.**.web"/>
 
-    <mvc:view-controller path="controller" view-name="users"/>
-
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:viewClass="org.springframework.web.servlet.view.JstlView"
           p:prefix="/WEB-INF/jsp/"

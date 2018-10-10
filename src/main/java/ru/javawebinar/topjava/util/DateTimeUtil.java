@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class DateTimeUtil {
+    public static final String DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public static final LocalDate MIN_DATE = LocalDate.of(1, 1, 1);
@@ -27,5 +28,9 @@ public class DateTimeUtil {
 
     public static LocalTime parseLocalTime(String str) {
         return StringUtils.isEmpty(str) ? null : LocalTime.parse(str);
+    }
+
+    public static LocalDateTime getNow() {
+        return LocalDateTime.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateTimeUtil.DATE_TIME_PATTERN)));
     }
 }

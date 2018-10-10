@@ -5,13 +5,13 @@
 <html>
 <head>
     <title>Meal list</title>
-    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="/resources/css/style.css">
 </head>
 <body>
 <section>
     <h3><a href="./">Home</a></h3>
     <h2>Meals</h2>
-    <form method="post" action="meals?action=filter">
+    <form method="post" action="meals/filter">
         <dl>
             <dt>From Date:</dt>
             <dd><input type="date" name="startDate" value="${param.startDate}"></dd>
@@ -46,12 +46,12 @@
                 <td>${fn:formatDateTime(meal.dateTime)}</td>
                 <td>${meal.description}</td>
                 <td>${meal.calories}</td>
-                <td><a href="meals?action=update&id=${meal.id}">Update</a></td>
-                <td><a href="meals?action=delete&id=${meal.id}">Delete</a></td>
+                <td><a href="meals/update?id=${meal.id}">Update</a></td>
+                <td><a href="meals/delete?id=${meal.id}">Delete</a></td>
             </tr>
         </c:forEach>
     </table>
-    <a href="create">Create meal</a>
+    <a href="meals/create">Create meal</a>
 </section>
 </body>
 </html>
