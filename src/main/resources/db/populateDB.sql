@@ -9,6 +9,7 @@ VALUES ('Admin', 'admin@gmail.com', 'admin'),
 
 INSERT INTO user_roles (role, user_id)
 VALUES ('ADMIN', 100000),
+       ('USER', 100000),
        ('USER', 100001);
 
 INSERT INTO meals (user_id, date_time, description, calories)

@@ -1,7 +1,6 @@
 package ru.javawebinar.topjava.web.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.UserService;
 
@@ -13,7 +12,7 @@ import static ru.javawebinar.topjava.util.ValidationUtil.checkNew;
 public abstract class AbstractUserController {
 
     @Autowired
-    private UserService service;
+    protected UserService service;
 
     public List<User> getAll() {
         return service.getAll();
