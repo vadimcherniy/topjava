@@ -1,10 +1,12 @@
 package ru.javawebinar.topjava.web.user;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
 import ru.javawebinar.topjava.Profiles;
 import ru.javawebinar.topjava.web.WebTest;
 
+@Ignore
 @ActiveProfiles({Profiles.DATAJPA, Profiles.POSTGRES})
 public class AdminRestControllerTest extends WebTest {
 

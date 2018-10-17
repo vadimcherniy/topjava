@@ -1,6 +1,8 @@
 package ru.javawebinar.topjava.web.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.service.UserService;
 
@@ -22,9 +24,10 @@ public abstract class AbstractUserController {
         return service.get(id);
     }
 
-    public User create(User user) {
+    public ResponseEntity<User> create(User user) {
         checkNew(user);
-        return service.create(user);
+        User created = service.create(user);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
     public void delete(Integer id) {

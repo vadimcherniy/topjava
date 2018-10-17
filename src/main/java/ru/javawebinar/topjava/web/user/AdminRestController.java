@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.web.user;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.javawebinar.topjava.model.User;
 
@@ -19,7 +20,8 @@ public class AdminRestController extends AbstractUserController {
         return super.get(id);
     }
 
-    public User create(User user) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> create(@RequestBody User user) {
         return super.create(user);
     }
 
@@ -28,11 +30,13 @@ public class AdminRestController extends AbstractUserController {
         super.delete(id);
     }
 
-    public void update(User user, Integer id) {
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void update(@RequestBody User user, Integer id) {
         super.update(user, id);
     }
 
-    public User getByMail(String email) {
+    @GetMapping(value = "/by", produces = MediaType.APPLICATION_JSON_VALUE)
+    public User getByMail(@RequestParam("email") String email) {
         return super.getByMail(email);
     }
 }

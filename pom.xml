@@ -33,6 +33,9 @@
         <!-- Web -->
         <jstl.version>1.2</jstl.version>
 
+        <!-- JSON -->
+        <jackson-json.version>2.9.7</jackson-json.version>
+
         <!-- ORM -->
         <hibernate.version>5.3.6.Final</hibernate.version>
         <hibernate-validator.version>6.0.12.Final</hibernate-validator.version>
@@ -121,6 +124,14 @@
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
         </dependency>
+
+        <!-- JSON -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-json.version}</version>
+        </dependency>
+
 
         <!--DataBase-->
         <dependency>
