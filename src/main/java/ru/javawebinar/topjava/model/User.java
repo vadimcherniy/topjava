@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.Fetch;
@@ -58,6 +59,7 @@ public class User extends AbstractNamedEntity {
     @Range(min = 10, max = 10000)
     private Integer caloriesPerDay = DEFAULT_CALORIES_PER_DAY;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Meal> meals;
 

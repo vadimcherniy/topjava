@@ -24,10 +24,9 @@ public abstract class AbstractUserController {
         return service.get(id);
     }
 
-    public ResponseEntity<User> create(User user) {
+    public User create(User user) {
         checkNew(user);
-        User created = service.create(user);
-        return new ResponseEntity<>(created, HttpStatus.CREATED);
+        return service.create(user);
     }
 
     public void delete(Integer id) {
